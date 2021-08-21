@@ -10,7 +10,7 @@ public class GameStateTest {
     private final Player dummyPlayer = new Player("sam");
     private final Player dummyDealer = new Player("dealer");
 
-    private Deck modifyTopCards(Card...cards) {
+    public static Deck modifyTopCards(Card...cards) {
         Deck deck = new Deck();
         Stack<Card> modifiedDeck = deck.getCardStack();
         int cardCounter = 0;
@@ -60,6 +60,127 @@ public class GameStateTest {
         GameState blackjack = new GameState(dummyPlayer, dummyDealer, winningDeck, false);
         blackjack.startGame();
         Assertions.assertEquals(blackjack.getWinner(), dummyPlayer.getName());
+    }
+
+    @Test
+    @DisplayName("Dealer wins if both players start with 22 (two aces).")
+    void dealerWinIfBothTwentyTwo() {
+        Card aceHearts = new Card(Suit.HEARTS, CardValue.ACE);
+        Card aceDiamonds = new Card(Suit.DIAMONDS, CardValue.ACE);
+        Card aceSpades = new Card(Suit.SPADES, CardValue.ACE);
+        Card aceClubs = new Card(Suit.CLUBS, CardValue.ACE);
+        Deck losingDeck = modifyTopCards(aceClubs, aceSpades, aceDiamonds, aceHearts);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, losingDeck, false);
+        blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyDealer.getName());
+    }
+
+    @Test
+    @DisplayName("Sam starts drawing cards and stops once reaching 17 or higher.")
+    void samStopsDrawingAtSeventeen() {
+        Card tenHearts = new Card(Suit.HEARTS, CardValue.TEN);
+        Card twoHearts = new Card(Suit.HEARTS, CardValue.TWO);
+        Card fiveHearts = new Card(Suit.HEARTS, CardValue.FIVE);
+        Card twoClubs = new Card(Suit.CLUBS, CardValue.TWO);
+        Card twoDiamonds = new Card(Suit.DIAMONDS, CardValue.TWO);
+        Deck testDeck = modifyTopCards(tenHearts, twoHearts, fiveHearts, twoClubs, twoDiamonds);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertEquals(dummyPlayer.getCardTotal(), 17);
+        Assertions.assertTrue(dummyPlayer.getHeldCards().size() > 2);
+    }
+    @Test
+    @DisplayName("Sam loses if card total goes above 21.")
+    void samLosesIfHandTotalMoreThanTwentyOne() {
+        Card tenHearts = new Card(Suit.HEARTS, CardValue.TEN);
+        Card twoHearts = new Card(Suit.HEARTS, CardValue.TWO);
+        Card fiveHearts = new Card(Suit.HEARTS, CardValue.FIVE);
+        Card twoClubs = new Card(Suit.CLUBS, CardValue.TWO);
+        Card kingDiamond = new Card(Suit.DIAMONDS, CardValue.KING);
+        Deck testDeck = modifyTopCards(tenHearts, twoHearts, fiveHearts, twoClubs, kingDiamond);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertTrue(dummyPlayer.getCardTotal() > 21);
+        Assertions.assertEquals(blackjack.getWinner(), dummyDealer.getName());
+    }
+
+    @Test
+    @DisplayName("Dealer starts drawing once Sam finishes.")
+    void dealerStartsDrawing() {
+        Card tenHearts = new Card(Suit.HEARTS, CardValue.TEN);
+        Card twoHearts = new Card(Suit.HEARTS, CardValue.TWO);
+        Card fiveHearts = new Card(Suit.HEARTS, CardValue.FIVE);
+        Card twoClubs = new Card(Suit.CLUBS, CardValue.TWO);
+        Card twoDiamonds = new Card(Suit.DIAMONDS, CardValue.TWO);
+        Card fiveSpades = new Card(Suit.SPADES, CardValue.FIVE);
+        Card sixSpades = new Card(Suit.SPADES, CardValue.SIX);
+        Card sixHearts = new Card(Suit.HEARTS, CardValue.SIX);
+        Deck testDeck = modifyTopCards(tenHearts, twoHearts, fiveHearts, twoClubs, twoDiamonds, fiveSpades, sixSpades, sixHearts);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertTrue(dummyPlayer.getCardTotal() > 2);
+    }
+
+    @Test
+    @DisplayName("Dealer stops drawing once their card total is higher than Sams.")
+    void dealerStopsAfterAbovePlayerCardTotal() {
+        Card tenHearts = new Card(Suit.HEARTS, CardValue.TEN);
+        Card twoHearts = new Card(Suit.HEARTS, CardValue.TWO);
+        Card fiveHearts = new Card(Suit.HEARTS, CardValue.FIVE);
+        Card twoClubs = new Card(Suit.CLUBS, CardValue.TWO);
+        Card twoDiamonds = new Card(Suit.DIAMONDS, CardValue.TWO);
+        Card fiveSpades = new Card(Suit.SPADES, CardValue.FIVE);
+        Card nineClubs = new Card(Suit.CLUBS, CardValue.NINE);
+        Deck testDeck = modifyTopCards(tenHearts, twoHearts, fiveHearts, twoClubs, twoDiamonds, fiveSpades, nineClubs);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertTrue(dummyDealer.getCardTotal() > dummyPlayer.getCardTotal());
+        Assertions.assertEquals(dummyDealer.getHeldCards().size(), 4);
+    }
+
+    @Test
+    @DisplayName("Dealer loses if they have more than 21.")
+    void dealerLosesWithMoreThanTwentyOne() {
+        Card tenHearts = new Card(Suit.HEARTS, CardValue.TEN);
+        Card twoHearts = new Card(Suit.HEARTS, CardValue.TWO);
+        Card fiveHearts = new Card(Suit.HEARTS, CardValue.FIVE);
+        Card twoClubs = new Card(Suit.CLUBS, CardValue.TWO);
+        Card twoDiamonds = new Card(Suit.DIAMONDS, CardValue.TWO);
+        Card queenDiamonds = new Card(Suit.DIAMONDS, CardValue.QUEEN);
+        Card jackHearts = new Card(Suit.HEARTS, CardValue.JACK);
+        Deck testDeck = modifyTopCards(tenHearts, twoHearts, fiveHearts, twoClubs, twoDiamonds, queenDiamonds, jackHearts);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyPlayer.getName());
+    }
+
+    @Test
+    @DisplayName("Sam wins if he has the highest card total.")
+    void samWinsWithHighestValue(){
+        Card tenHearts = new Card(Suit.HEARTS, CardValue.TEN);
+        Card twoHearts = new Card(Suit.HEARTS, CardValue.TWO);
+        Card kingSpades = new Card(Suit.SPADES, CardValue.KING);
+        Card twoClubs = new Card(Suit.CLUBS, CardValue.TWO);
+        Card queenDiamonds = new Card(Suit.DIAMONDS, CardValue.QUEEN);
+        Card jackHearts = new Card(Suit.HEARTS, CardValue.JACK);
+        Deck testDeck = modifyTopCards(tenHearts, twoHearts, kingSpades, twoClubs, queenDiamonds, jackHearts);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyPlayer.getName());
+    }
+
+    @Test
+    @DisplayName("Dealer wins with highest card total.")
+    void dealerWinsWithHighestValue(){
+        Card sevenHearts = new Card(Suit.HEARTS, CardValue.SEVEN);
+        Card queenHearts = new Card(Suit.HEARTS, CardValue.QUEEN);
+        Card kingSpades = new Card(Suit.SPADES, CardValue.KING);
+        Card queenClubs = new Card(Suit.CLUBS, CardValue.QUEEN);
+        Deck testDeck = modifyTopCards(sevenHearts, queenHearts, kingSpades, queenClubs);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyDealer.getName());
+
     }
 
 }

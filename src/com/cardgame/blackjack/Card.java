@@ -23,6 +23,10 @@ public class Card {
         return this.cardValue.getValue();
     }
 
+    public CardValue getCardRank() {
+        return this.cardValue;
+    }
+
     public String getFullCard() {
         return this.suit.getShortName() + this.cardValue.getShortName();
     }

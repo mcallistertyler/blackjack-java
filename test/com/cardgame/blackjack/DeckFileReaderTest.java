@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.cardgame.blackjack.DeckFileReader.readDeckFile;
+import static com.cardgame.blackjack.DeckFileReader.validCardList;
+import static com.cardgame.blackjack.DeckFileReader.validateInput;
 
 public class DeckFileReaderTest {
 
@@ -42,5 +44,34 @@ public class DeckFileReaderTest {
     void returnEmptyOnFailure() {
         List<String> emptyCardList = readDeckFile("");
         Assertions.assertTrue(emptyCardList.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Validation throws exception if card list does not contain 52 cards")
+    void validationThrowsExceptionIfNotFiftyTwoCards() {
+        List<String> deckMissingOneCard = validCardList();
+        deckMissingOneCard.remove(1);
+        Assertions.assertThrows(DeckFileReaderException.DeckFileReaderRequiresFiftyTwoCards.class, () ->
+                validateInput(deckMissingOneCard));
+    }
+
+    @Test
+    @DisplayName("Validation throws exception if card list contains duplicates")
+    void validationThrowsExceptionIfContainsDuplicates() {
+        List<String> deckDuplicateCard = validCardList();
+        deckDuplicateCard.remove(1);
+        deckDuplicateCard.add("SA");
+        Assertions.assertThrows(DeckFileReaderException.DeckFileReaderDuplicateCards.class, () ->
+                validateInput(deckDuplicateCard));
+    }
+
+    @Test
+    @DisplayName("Validation throws exception if card list contains disallowed values")
+    void validationThrowsExceptionIfIllegalValue() {
+        List<String> deckMalformedCard = validCardList();
+        deckMalformedCard.remove(1);
+        deckMalformedCard.add("NOPE");
+        Assertions.assertThrows(DeckFileReaderException.DeckFileReaderMalformedValues.class, () ->
+                validateInput(deckMalformedCard));
     }
 }

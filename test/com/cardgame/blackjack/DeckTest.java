@@ -1,7 +1,6 @@
 package com.cardgame.blackjack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,19 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class DeckTest {
+import static com.cardgame.blackjack.DeckFileReader.validCardList;
 
-    private List<String> exampleDeck() {
-        List<String> suitList = Arrays.asList("C", "D", "S", "H");
-        List<String> valueList = Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
-        List<String> mockStringDeck = new ArrayList<>();
-        suitList.forEach(suit -> {
-            valueList.forEach(cardValue -> {
-                mockStringDeck.add(suit + cardValue);
-            });
-        });
-        return mockStringDeck;
-    }
+public class DeckTest {
 
     private Deck createDeckFromEmptyList() {
        return new Deck();
@@ -60,7 +49,7 @@ public class DeckTest {
     @Test
     @DisplayName("Can build a deck from list of string card values.")
     void buildDeckFromInput() {
-        List<String> dummyDeck = exampleDeck();
+        List<String> dummyDeck = validCardList();
         Deck deck = new Deck(dummyDeck);
         Assertions.assertEquals(deck.deckSize(), 52);
         Stack<Card> generatedDeck = deck.getCardStack();

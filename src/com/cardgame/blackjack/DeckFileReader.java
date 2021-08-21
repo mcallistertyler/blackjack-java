@@ -30,7 +30,7 @@ public class DeckFileReader {
                 return new ArrayList<>();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No deck file found, or incorrect number or type of cards within file.");
+            System.out.println("No deck file found, new deck will be created.");
             return cardList;
         }
     }

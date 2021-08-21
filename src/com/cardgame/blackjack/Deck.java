@@ -59,7 +59,6 @@ public class Deck {
 
     private void initializeDeck(List<String> readCards) {
         if (readCards.isEmpty()) {
-            System.out.println("No deck file provided. Building new deck from scratch");
             createDeck();
         } else {
             readCards.forEach((stringCard) -> {

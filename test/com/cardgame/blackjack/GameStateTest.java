@@ -180,7 +180,20 @@ public class GameStateTest {
         GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
         blackjack.startGame();
         Assertions.assertEquals(blackjack.getWinner(), dummyDealer.getName());
+    }
 
+    @Test
+    @DisplayName("Test from PDF.")
+    void testFromPDF(){
+        Card aceClubs = new Card(Suit.CLUBS, CardValue.ACE);
+        Card fiveDiamonds = new Card(Suit.DIAMONDS, CardValue.FIVE);
+        Card nineHearts = new Card(Suit.HEARTS, CardValue.NINE);
+        Card queenHearts = new Card(Suit.HEARTS, CardValue.QUEEN);
+        Card eightSpades = new Card(Suit.SPADES, CardValue.EIGHT);
+        Deck testDeck = modifyTopCards(aceClubs, fiveDiamonds, nineHearts, queenHearts, eightSpades);
+        GameState blackjack = new GameState(dummyPlayer, dummyDealer, testDeck, false);
+        blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyPlayer.getName());
     }
 
 }

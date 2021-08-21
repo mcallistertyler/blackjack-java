@@ -31,12 +31,6 @@ public class GameState {
     }
 
     public void startGame() {
-        StringJoiner joiner = new StringJoiner(",");
-        deck.getCardStack().forEach(card -> {
-            joiner.add(card.getFullCard());
-        });
-        System.out.println(joiner.toString());
-
         while (true) {
 
             if (shuffleDeck) {
@@ -71,7 +65,7 @@ public class GameState {
                 break;
             }
             if (gambler.getCardTotal() > dealer.getCardTotal()) {
-                printGameResults(gambler, dealer);
+               printGameResults(gambler, dealer);
                break;
             } else {
                 printGameResults(dealer, gambler);
@@ -82,12 +76,12 @@ public class GameState {
 
     private void printGameResults(Player winner, Player loser) {
         System.out.println(winner.getName());
-        String winningHand = winner.getName() + ": " + winner.viewHand();
-        String losingHand = loser.getName() + ": " + loser.viewHand();
-        System.out.println(winningHand);
-        System.out.println(losingHand);
+        String gamblerHand = gambler.getName() + ": " + gambler.viewHand();
+        String dealerHand = dealer.getName() + ": " + dealer.viewHand();
+        System.out.println(gamblerHand);
+        System.out.println(dealerHand);
         this.setWinner(winner.getName());
-        this.setWinnerHand(winningHand);
+        this.setWinnerHand(winner.viewHand());
     }
 
     private boolean hitTwentyOne(Player player) {

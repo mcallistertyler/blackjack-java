@@ -21,7 +21,7 @@ public class Player {
     }
 
     public String viewHand() {
-        StringJoiner joiner = new StringJoiner(",");
+        StringJoiner joiner = new StringJoiner(", ");
         getHeldCards().forEach(card -> {
             joiner.add(card.getFullCard());
         });

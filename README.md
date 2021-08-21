@@ -21,7 +21,7 @@ The implementation was programmed in Java 8 (1.8) and tested with JUnit 5.4.2
 ## Usage
 Java 8 is required to run the implementation. The program can be provided with an input txt file with the following format:
 ```shell
-D2,D4,H7,SJ,..,S9,CA,CKD4,H7,SJ
+D2,D4,H7,SJ,..,S9,CA,CK
 ```
 Where the input contains 52 unique cards.
 

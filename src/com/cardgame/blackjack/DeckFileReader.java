@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
 public class DeckFileReader {
     public static List<String> readDeckFile(String filePath) {
         List<String> cardList = new ArrayList<>();
-        if (filePath == null) {
-            return cardList;
-        }
         try {
             File deckFile = new File(filePath);
             Scanner reader = new Scanner(deckFile);

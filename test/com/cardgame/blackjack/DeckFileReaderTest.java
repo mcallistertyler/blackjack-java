@@ -12,28 +12,28 @@ public class DeckFileReaderTest {
     @Test
     @DisplayName("Reads file successfully with 52 items.")
     void readTestFile() {
-        List<String> cardList = readDeckFile("example-decks/deck-of-cards.txt");
+        List<String> cardList = readDeckFile("example-decks/shuffled-deck-of-cards.txt");
         Assertions.assertEquals(cardList.size(), 52);
     }
 
     @Test
     @DisplayName("Deck file must have 52 cards exactly.")
     void validateTestFileSize() {
-        List<String> cardList = readDeckFile("example-decks/deck-of-51-cards.txt");
+        List<String> cardList = readDeckFile("example-decks/invalid-decks/deck-of-51-cards.txt");
         Assertions.assertEquals(cardList.size(), 0);
     }
 
     @Test
     @DisplayName("Validates duplicate values in input.")
     void validateTestFileDuplicates() {
-        List<String> cardList = readDeckFile("example-decks/deck-of-duplicate-cards.txt");
+        List<String> cardList = readDeckFile("example-decks/invalid-decks/deck-of-duplicate-cards.txt");
         Assertions.assertEquals(cardList.size(), 0);
     }
 
     @Test
     @DisplayName("Validates invalid values in input.")
     void validateInvalidCardValues() {
-        List<String> cardList = readDeckFile("example-decks/deck-of-invalid-card-values.txt");
+        List<String> cardList = readDeckFile("example-decks/invalid-decks/deck-of-invalid-card-values.txt");
         Assertions.assertEquals(cardList.size(), 0);
     }
 

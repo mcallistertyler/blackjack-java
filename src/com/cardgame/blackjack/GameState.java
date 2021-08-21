@@ -1,7 +1,5 @@
 package com.cardgame.blackjack;
 
-import java.util.StringJoiner;
-
 public class GameState {
     private final Player gambler;
     private final Player dealer;
@@ -43,38 +41,38 @@ public class GameState {
             dealer.drawFromDeck(deck, 1);
 
             if (hitTwentyOne(gambler)) {
-                printGameResults(gambler, dealer);
+                declareWinner(gambler);
                 break;
             }
             if (hitTwentyOne(dealer)) {
-                printGameResults(dealer, gambler);
+                declareWinner(dealer);
                 break;
             }
             if (dealer.getCardTotal() == 22 && gambler.getCardTotal() == 22) {
-                printGameResults(dealer, gambler);
+                declareWinner(dealer);
                 break;
             }
             drawUntil(gambler, 17);
             if (isBust(gambler)) {
-                printGameResults(dealer, gambler);
+                declareWinner(dealer);
                 break;
             }
             drawUntil(dealer, gambler.getCardTotal());
             if (isBust(dealer)) {
-                printGameResults(gambler, dealer);
+                declareWinner(gambler);
                 break;
             }
             if (gambler.getCardTotal() > dealer.getCardTotal()) {
-               printGameResults(gambler, dealer);
+               declareWinner(gambler);
                break;
             } else {
-                printGameResults(dealer, gambler);
+                declareWinner(dealer);
                 break;
             }
         }
     }
 
-    private void printGameResults(Player winner, Player loser) {
+    private void declareWinner(Player winner) {
         System.out.println(winner.getName());
         String gamblerHand = gambler.getName() + ": " + gambler.viewHand();
         String dealerHand = dealer.getName() + ": " + dealer.viewHand();

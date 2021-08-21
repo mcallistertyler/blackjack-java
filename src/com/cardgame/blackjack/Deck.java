@@ -61,6 +61,7 @@ public class Deck {
         if (readCards.isEmpty()) {
             createDeck();
         } else {
+            Collections.reverse(readCards);
             readCards.forEach((stringCard) -> {
                 cardStack.push(new Card (stringCard));
             });

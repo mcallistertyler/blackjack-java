@@ -7,12 +7,27 @@ public class GameState {
     private final Player dealer;
     private final Deck deck;
     private final boolean shuffleDeck;
+    private String winner;
+    private String winnerHand;
 
     public GameState(Player gambler, Player dealer, Deck deck, boolean shuffleDeck) {
         this.gambler = gambler;
         this.dealer = dealer;
         this.deck = deck;
         this.shuffleDeck = shuffleDeck;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
+    public void setWinnerHand(String winnerHand) {
+        this.winnerHand = winnerHand;
+    }
+    public String getWinner() {
+        return this.winner;
+    }
+    public String getWinningHand() {
+        return this.winnerHand;
     }
 
     public void startGame() {
@@ -67,8 +82,12 @@ public class GameState {
 
     private void printGameResults(Player winner, Player loser) {
         System.out.println(winner.getName());
-        System.out.println(winner.getName() + ": " + winner.viewHand());
-        System.out.println(loser.getName() + ": " + loser.viewHand());
+        String winningHand = winner.getName() + ": " + winner.viewHand();
+        String losingHand = loser.getName() + ": " + loser.viewHand();
+        System.out.println(winningHand);
+        System.out.println(losingHand);
+        this.setWinner(winner.getName());
+        this.setWinnerHand(winningHand);
     }
 
     private boolean hitTwentyOne(Player player) {

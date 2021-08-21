@@ -7,7 +7,11 @@ import static com.cardgame.blackjack.DeckFileReader.readDeckFile;
 
 final class Blackjack {
     public static void main(String[] args) {
-        List<String> deckFile = readDeckFile("");
+        String filePath = "";
+        if (args.length > 0) {
+           filePath = args[0];
+        }
+        List<String> deckFile = readDeckFile(filePath);
         Deck deck = new Deck(deckFile);
         Player sam = new Player("sam");
         Player dealer = new Player("dealer");

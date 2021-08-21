@@ -3,6 +3,7 @@ package com.cardgame.blackjack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -26,7 +27,7 @@ public class Deck {
 
     public Card drawCard() {
         if (cardStack.empty()) {
-            System.out.println("The game should have ended by this point. But if this happens the game should end.");
+            throw new EmptyStackException();
         }
         return cardStack.pop();
     }

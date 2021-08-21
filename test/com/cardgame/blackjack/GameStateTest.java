@@ -2,12 +2,13 @@ package com.cardgame.blackjack;
 
 import java.util.Collections;
 import java.util.Stack;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class GameStateTest {
-    private Player dummyPlayer = new Player("sam");
-    private Player dummyDealer = new Player("dealer");
+    private final Player dummyPlayer = new Player("sam");
+    private final Player dummyDealer = new Player("dealer");
 
     private Deck modifyTopCards(Card...cards) {
         Deck deck = new Deck();
@@ -32,6 +33,7 @@ public class GameStateTest {
         Deck winningDeck = modifyTopCards(aceDiamonds, twoDiamonds, aceHearts, twoHearts);
         GameState blackjack = new GameState(dummyPlayer, dummyDealer, winningDeck, false);
         blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyPlayer.getName());
     }
 
     @Test
@@ -44,6 +46,7 @@ public class GameStateTest {
         Deck losingDeck = modifyTopCards(twoDiamonds, aceDiamonds, twoHearts, tenHearts);
         GameState blackjack = new GameState(dummyPlayer, dummyDealer, losingDeck, false);
         blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyDealer.getName());
     }
 
     @Test
@@ -56,6 +59,7 @@ public class GameStateTest {
         Deck winningDeck = modifyTopCards(aceHearts, aceDiamonds, tenDiamonds, tenHearts);
         GameState blackjack = new GameState(dummyPlayer, dummyDealer, winningDeck, false);
         blackjack.startGame();
+        Assertions.assertEquals(blackjack.getWinner(), dummyPlayer.getName());
     }
 
 }

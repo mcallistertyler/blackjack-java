@@ -25,7 +25,8 @@ D2,D4,H7,SJ,..,S9,CA,CK
 ```
 Where the input contains 52 unique cards.
 
-The implementation can be run via the command line using the jar file with the following command:
+The implementation can be found on the [releases page](https://github.com/mcallistertyler/blackjack-java/releases/tag/v1.1) or under the `out/artifacts/Blackjack_jar`. It can also be run in an IDE using the `Blackjack.java` class.
+Via the command line using the jar the following command will run the program:
 
 ```shell
 java -jar Blackjack.jar ./path_to_file

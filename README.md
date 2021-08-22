@@ -39,7 +39,7 @@ By default the input file will not be shuffled. Shuffling the deck from file inp
 java -jar Blackjack.jar ./path_to_file true
 ```
 
-Some example decks can be found under the `example-decks` directory.
+Some example decks can be found under the `example-decks` directory while incorrectly formatted examples can be found under the `invalid-decks` directory.
 
 ## Output
 The program will simulate a Blackjack game and output the winner at the top of the output, along with the final hands for both players. For example, in the below example the dealer has won because they drew 21 in their initial hand.

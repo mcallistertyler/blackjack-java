@@ -32,7 +32,7 @@ Via the command line using the jar the following command will run the program:
 java -jar Blackjack.jar ./path_to_file
 ```
 
-If run without any input the program will generate a shuffle deck of 52 cards.
+If run without any input the program will generate a shuffled deck of 52 cards.
 
 By default the input file will not be shuffled. Shuffling the deck from file input can be done via
 ```shell

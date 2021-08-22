@@ -6,25 +6,27 @@ import java.util.List;
 import java.util.Map;
 
 public enum Suit {
-    CLUBS,
-    DIAMONDS,
-    HEARTS,
-    SPADES;
+    CLUBS("C"),
+    DIAMONDS("D"),
+    HEARTS("H"),
+    SPADES("S");
 
     static final Map<String, Suit> suitFromString = new HashMap<>();
-
+    private final String value;
     static {
         List<String> valueList = Arrays.asList("C", "D", "H", "S");
-        Suit[] validValues = Suit.values();
+        List<Suit> suitValues = Arrays.asList(Suit.values());
         int currentValue = 0;
         for (String stringValue: valueList) {
-            suitFromString.put(stringValue, validValues[currentValue]);
+            suitFromString.put(stringValue, suitValues.get(currentValue));
             currentValue++;
         }
     }
 
-    public String getShortName() {
-        return name().substring(0, 1);
+    Suit(final String suitValue) {
+        value = suitValue;
     }
-
+    public String getValue() {
+        return value;
+    }
 }

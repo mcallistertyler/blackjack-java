@@ -28,7 +28,7 @@ public class Card {
     }
 
     public String getFullCard() {
-        return this.suit.getShortName() + this.cardValue.getShortName();
+        return this.suit.getValue() + this.cardValue.getShortName();
     }
 
     public Suit getSuit() {

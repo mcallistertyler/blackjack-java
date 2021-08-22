@@ -18,9 +18,9 @@ public class SuitTest {
     @Test
     @DisplayName("Shortname returns singular string.")
     void shortNameReturnsSingularString() {
-        Assertions.assertEquals(Suit.DIAMONDS.getShortName(), "D");
-        Assertions.assertEquals(Suit.HEARTS.getShortName(), "H");
-        Assertions.assertEquals(Suit.CLUBS.getShortName(), "C");
-        Assertions.assertEquals(Suit.SPADES.getShortName(), "S");
+        Assertions.assertEquals(Suit.DIAMONDS.getValue(), "D");
+        Assertions.assertEquals(Suit.HEARTS.getValue(), "H");
+        Assertions.assertEquals(Suit.CLUBS.getValue(), "C");
+        Assertions.assertEquals(Suit.SPADES.getValue(), "S");
     }
 }
